@@ -12,6 +12,15 @@ $dotenv = new Dotenv\Dotenv(__DIR__ . '/../');
 $dotenv->load();
 
 
+/**
+ * @author Martin Dimondo <martin.dimondo@gmail.com>
+ * @return \app\rest\JSONResponse
+ *      status codes:
+ *         HTTP 200 OK: request was valid, return the JSON representation of your FriendList.
+ *         HTTP 403 Not Authorized
+ *         HTTP 404 Not found: friends list is not available.
+ *         HTTP 500 Internal Server Error: bad app configuration or Redis is down.
+ */
 class FriendListResource extends app\rest\Rest {
 
     public function get($request) {

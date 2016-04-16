@@ -18,9 +18,10 @@ abstract class Rest {
         $method = $_SERVER['REQUEST_METHOD'];
 
         // it validates request method
-        if (in_array($method, ["GET", "POST", "GET", "PUT", "DELETE"])) {
-            if ($this->isAllowedOrigin()) {
-                $response = $this->$method(new Request());
+        if (in_array($method, ["GET", "POST", "PUT", "DELETE"])) {
+          if ($this->validateOrigin()) {
+                $fnToCall = strtolower($method);
+                $response = $this->$fnToCall(new Request());
             } else {
                 $response = new JSONResponse(403, [
                     'error' => true, 
@@ -32,7 +33,7 @@ abstract class Rest {
         }
     }
 
-    protected function isAllowedOrigin() {
+    protected function validateOrigin() {
         $allowedDomains = explode(',', getenv('ALLOWED_DOMAINS'));
         $allowBlankReferrer = getenv('ALLOW_BLANK_REFERRER') || false;
         $httpOrigin = !empty($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : null;
