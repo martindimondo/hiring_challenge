@@ -23,7 +23,7 @@ class JSONResponse {
     $this->wrapped = $value;    
   }
 
-  public function __toString() {
+  public function serializeResponse() {
     http_response_code($this->code);
     header('Content-Type: application/json; charset=utf-8');
     return json_encode($this->wrapped);

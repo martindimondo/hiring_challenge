@@ -28,7 +28,7 @@ abstract class Rest {
                     'message' => 'Not a valid origin.'
                 ]);
             }
-            echo $response;
+            echo $response->serializeResponse();
             exit();
         }
     }
