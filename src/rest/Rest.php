@@ -2,9 +2,22 @@
 namespace app\rest;
 
 
+/**
+ * Base class to create a rest resource 
+ *
+ * @author Martin Dimondo <martin.dimondo@gmail.com>
+ */
 abstract class Rest {
+
+    /**
+     * Main function to handle a request
+     *
+     * @return \app\rest\JSONResponse
+     */
     public function execute() {
         $method = $_SERVER['REQUEST_METHOD'];
+
+        // it validates request method
         if (in_array($method, ["GET", "POST", "GET", "PUT", "DELETE"])) {
             if ($this->isAllowedOrigin()) {
                 $response = $this->$method(new Request());

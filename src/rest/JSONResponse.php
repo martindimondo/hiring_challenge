@@ -2,8 +2,20 @@
 namespace app\rest;
 
 
+/**
+ * @author Martin Dimondo <martin.dimondo@gmail.com>
+ *
+ */
 class JSONResponse {
+  /*
+   * @var mixed 
+   */
   protected $wrapped;
+
+  /*
+   * @var int
+   * STATUS CODE
+   */
   protected $code;
 
   public function __construct($code, $value) {

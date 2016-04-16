@@ -1,6 +1,16 @@
 <?php
 namespace app\services;
 
+
+define('FRIENDS_CACHE_PREFIX_KEY', 'chat:friends:{:userId}');
+define('ONLINE_CACHE_PREFIX_KEY', 'chat:online:{:userId}');
+
+
+/**
+ * User service 
+ *
+ * @author Martin Dimondo <martin.dimondo@gmail.com>
+ */
 class UserService {
     protected $conn;
 
@@ -8,6 +18,14 @@ class UserService {
         $this->conn = RedisService::openConnection();
     }
 
+    /**
+     * Function to find a Friend List by session hash 
+     * @param $sessionHash 
+     *              User session
+     * @throws Exception
+     *              if it can't connect to the server
+     * @return \app\domain\chat\FriendsList
+     */
     public function findFriendList($sessionHash) {
         $session = $this->conn->get(
             join(':', ['PHPREDIS_SESSION', $sessionHash])
